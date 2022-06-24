@@ -16,5 +16,5 @@ it('must get the sum of an array', () => {
 })
 
 it('tests before each func', ()=>{
-    assert.strictEqual(arr.length, 4);
+    assert.strictEqual(arr.length, 3);
 })

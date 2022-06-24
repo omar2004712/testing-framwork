@@ -4,6 +4,7 @@ const path = require('path');
 const util = require('util');
 const readdir = util.promisify(fs.readdir);
 const stat = util.promisify(fs.stat);
+const render = require('./render');
 const colors = require('colors');
 
 const forbiddenDirs = ['node_modules']
@@ -17,13 +18,14 @@ class Runner {
         for(let file of this.testFiles){
             console.log(`---- ${file.shortName}`.gray)
             const beforeEaches = [];
+            global.render = render;
             global.beforeEach = (func) => {
                 beforeEaches.push(func);
             }
-            global.it = (desc, test) => {
+            global.it = async (desc, test) => {
                 beforeEaches.forEach(func => func());
                 try{
-                    test();
+                    await test(); //to wait for any async function
                     console.log(`\t✓ - ${desc}\n`.green);
                 }
                 catch (err){
