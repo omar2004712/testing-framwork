@@ -34,6 +34,10 @@ class Runner {
                     console.log('\t', message.red);
                 }
             }
+            global.test = (tests) => { 
+                //to make all it functions run sequentially
+                tests();
+            }
             try{
                 require(file.name);
             } catch (err){
