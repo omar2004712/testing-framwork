@@ -6,7 +6,7 @@ const runner = new Runner();
 
 const test  = async ()=>{
     await runner.collectFiles(process.cwd())
-    runner.runTests()
+    await runner.runTests()
     console.log('finished')
 }
 
